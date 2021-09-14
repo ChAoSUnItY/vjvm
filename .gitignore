@@ -1,0 +1,8 @@
+# Binaries for programs and plugins
+main
+vjvm
+*.exe
+*.exe~
+*.so
+*.dylib
+*.dll
