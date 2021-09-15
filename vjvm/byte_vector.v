@@ -1,7 +1,5 @@
 module vjvm
 
-import encoding.utf8 { len, raw_index }
-
 pub struct ByteVec {
 pub mut:
 	data []byte = []byte{cap:64}
