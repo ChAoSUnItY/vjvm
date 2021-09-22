@@ -1,4 +1,4 @@
-module vjvm.label
+module label
 
 import vjvm
 

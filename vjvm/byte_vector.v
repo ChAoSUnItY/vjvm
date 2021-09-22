@@ -18,42 +18,42 @@ pub fn (mut b ByteVec) put_2byte(bt1 byte, bt2 byte) {
 
 pub fn (mut b ByteVec) put_i16(s i16) {
 	b.resize(2)
-	b.put(ushift(s, 8), s)
+	b.put(int(s) >>> 8, s)
 }
 
 pub fn (mut b ByteVec) put_byte_i16(bt byte, s i16) {
 	b.resize(3)
-	b.put(bt, ushift(s, 8), s)
+	b.put(bt, int(s) >>> 8, s)
 }
 
 pub fn (mut b ByteVec) put_byte_byte_i16(bt1 byte, bt2 byte, s i16) {
 	b.resize(4)
-	b.put(bt1, bt2, ushift(s, 8), s)
+	b.put(bt1, bt2, int(s) >>> 8, s)
 }
 
 pub fn (mut b ByteVec) put_int(i int) {
 	b.resize(4)
-	b.put(ushift(i, 24), ushift(i, 16), ushift(i, 8), i)
+	b.put(i >>> 24, i >>> 16, i >>> 8, i)
 }
 
 pub fn (mut b ByteVec) put_byte_i16_i16(bt byte, s1 i16, s2 i16) {
 	b.resize(5)
-	b.put(bt, ushift(s1, 8), s1, ushift(s2, 8), s2)
+	b.put(bt, int(s1) >>> 8, s1, int(s2) >>> 8, s2)
 }
 
 pub fn (mut b ByteVec) put_i64(i i64) {
 	b.resize(8)
 	mut int_value := int(u64(i) >> 32)
-	b.put(ushift(int_value, 24), ushift(int_value, 16), ushift(int_value, 8), int_value)
+	b.put(int_value >>> 24, int_value >>> 16, int_value >>> 8, int_value)
 	int_value = int(i)
-	b.put(ushift(int_value, 24), ushift(int_value, 16), ushift(int_value, 8), int_value)
+	b.put(int_value >>> 24, int_value >>> 16, int_value >>> 8, int_value)
 }
 
 pub fn (mut b ByteVec) put_utf8(s string) {
 	bytes := s.bytes()
 	len := bytes.len
 	b.resize(2 + len)
-	b.put(ushift(len, 8), len)
+	b.put(len >>> 8, len)
 	b.put(...bytes.map(int(it)))
 }
 
@@ -73,8 +73,4 @@ fn (mut b ByteVec) put(bts ...int) {
 		b.data << byte(bt)
 		b.len += 1
 	}
-}
-
-fn ushift(v int, bits int) int {
-	return int(u32(v) >> bits)
 }
