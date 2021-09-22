@@ -2,8 +2,8 @@ module vjvm
 
 pub struct ByteVec {
 pub mut:
-	data []byte = []byte{cap:64}
-	len int
+	data []byte = []byte{cap: 64}
+	len  int
 }
 
 pub fn (mut b ByteVec) put_byte(bt byte) {
@@ -64,7 +64,11 @@ pub fn (mut b ByteVec) put_bytes(bts []int, offset int, len int) {
 
 fn (mut b ByteVec) resize(incoming_data_len int) {
 	if b.len + incoming_data_len > b.data.cap {
-		b.data.grow_cap(if b.data.len * 2 > b.data.len + incoming_data_len { b.data.len } else { incoming_data_len })
+		b.data.grow_cap(if b.data.len * 2 > b.data.len + incoming_data_len {
+			b.data.len
+		} else {
+			incoming_data_len
+		})
 	}
 }
 
